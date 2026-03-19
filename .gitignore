@@ -19,9 +19,6 @@ env/
 *.suo
 *.user
 
-# Assets (imágenes, sonidos, etc.)
-assets/
-
 # Sistema operativo
 .DS_Store
 Thumbs.db
