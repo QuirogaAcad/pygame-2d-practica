@@ -19,6 +19,7 @@ env/
 *.suo
 *.user
 
+
 # Sistema operativo
 .DS_Store
 Thumbs.db

@@ -27,13 +27,20 @@ for i in range(len(player_frames)):
         )
     )
 
+# ==============================
+# CARGAR PISTOLA
+# ==============================
+
+gun_image = pygame.image.load("assets/images/weapons/gun.png").convert_alpha()
+gun_image = pygame.transform.scale(gun_image, (40, 40))
+
 clock = pygame.time.Clock()
 
 centro_x = ANCHO_VENTANA // 2
 centro_y = ALTO_VENTANA // 2
 
-# ahora pasamos la lista de sprites
-Jugador = Personaje(centro_x, centro_y, player_frames)
+# ahora pasamos sprites + pistola
+Jugador = Personaje(centro_x, centro_y, player_frames, gun_image)
 
 run = True
 while run:
