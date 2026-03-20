@@ -1,6 +1,8 @@
 import pygame
+import math
 from constantes import *
 from personaje import Personaje
+from bala import Bala
 
 pygame.init()
 
@@ -42,19 +44,60 @@ centro_y = ALTO_VENTANA // 2
 # ahora pasamos sprites + pistola
 Jugador = Personaje(centro_x, centro_y, player_frames, gun_image)
 
+# ==============================
+# LISTA DE BALAS
+# ==============================
+
+balas = []
+
 run = True
 while run:
 
     clock.tick(60)
 
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             run = False
 
+        # ==============================
+        # DISPARO CON MOUSE
+        # ==============================
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+
+            if event.button == 1:  # click izquierdo
+
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+
+                dx = mouse_x - Jugador.rect.centerx
+                dy = mouse_y - Jugador.rect.centery
+
+                angulo = math.degrees(math.atan2(dy, dx))
+
+                # distancia hasta la punta del arma
+                distancia = 35
+
+                spawn_x = Jugador.rect.centerx + math.cos(math.radians(angulo)) * distancia
+                spawn_y = Jugador.rect.centery + math.sin(math.radians(angulo)) * distancia
+
+                balas.append(Bala(spawn_x, spawn_y, angulo))
+
+    # mover jugador
     Jugador.mover()
 
+    # mover balas
+    for bala in balas:
+        bala.mover()
+
     ventana.fill((0, 0, 0))
+
+    # dibujar jugador
     Jugador.dibujar(ventana)
+
+    # dibujar balas
+    for bala in balas:
+        bala.dibujar(ventana)
 
     pygame.display.update()
 
